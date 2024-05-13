@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员查询所有手机信息</title>
+    <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css"/>
+    <!-- 引入vue.js -->
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <a href="adminInsert.html" style="float: right">点击添加手机信息</a>
+    <table class="layui-table">
+        <colgroup>
+            <col width="100">
+            <col width="120">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>编号</th>
+            <th>品牌</th>
+            <th>型号</th>
+            <th>运存</th>
+            <th>内存</th>
+            <th>处理器</th>
+            <th>数量</th>
+            <th>价格</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="phone in phone">
+            <td>{{phone.id}}</td>
+            <td>{{phone.brand}}</td>
+            <td>{{phone.model}}</td>
+            <td>{{phone.storage}}</td>
+            <td>{{phone.memory}}</td>
+            <td>{{phone.processor}}</td>
+            <td>{{phone.number}}</td>
+            <td>{{phone.price}}</td>
+            <td>
+                    <div>
+                        <a :href="'adminUpdate.html?id='+phone.id">修改</a>
+                        <a type="button" @click="deleteabc(phone.id)">删除</a>
+                    </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    /**
+     * 页面加载之后发送ajax请求
+     */
+    new Vue({
+        el:"#app",
+        data(){
+            return{
+                phone:[],
+                id: ''
+            }
+        },
+        methods:{
+          deleteabc(id){
+              axios({
+                  method:'PUT',
+                  url: 'http://127.0.0.1:8080/admin/delete/'+id,
+              }).then(function (result){
+                  var code = result.data.code;
+                  var msg = result.data.msg;
+                  if (code == "200"){
+                      alert("删除成功！");
+                      window.location.href = "adminIndex.html"
+                  }else {
+                      alert(msg);
+                  }
+              })
+          }
+        },
+        mounted(){
+            var _this = this;
+            axios({
+                method:"GET",
+                url:'http://127.0.0.1:8080/admin/selectAll',
+            }).then(function (result){
+                var code =result.data.code;
+                var data =result.data.data;
+                if (code == "200"){
+                    _this.phone=data;
+                }
+            })
+        }
+    });
+</script>
+</body>
+</html>

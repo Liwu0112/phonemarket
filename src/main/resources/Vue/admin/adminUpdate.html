@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改手机信息</title>
+    <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css"/>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <a href="adminIndex.html" style="float: right">点击返回首页</a>
+    <form class="layui-form" action="">
+        <div class="layui-form-item" style="display: none">
+            <label class="layui-form-label">编号</label>
+            <div class="layui-input-block">
+                <input type="text" name="id" v-model="phone.id" id="id" required lay-verify="required"
+                       autocomplete="off"
+                       class="layui-input"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">品牌</label>
+            <div class="layui-input-block">
+                <input type="text" name="brand" v-model="phone.brand" id="brand" required
+                       lay-verify="required"
+                       placeholder="请输入手机品牌"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">型号</label>
+            <div class="layui-input-block">
+                <input type="text" name="model" v-model="phone.model" id="model" required lay-verify="required"
+                       placeholder="请输入手机型号"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">运存</label>
+            <div class="layui-input-block">
+                <input type="text" name="storage" v-model="phone.storage" id="storage" required lay-verify="required"
+                       placeholder="请输入手机运存"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">内存</label>
+            <div class="layui-input-block">
+                <input type="text" name="memory" v-model="phone.memory" id="memory" required lay-verify="required"
+                       placeholder="请输入手机内存"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">处理器</label>
+            <div class="layui-input-block">
+                <input type="text" name="processor" v-model="phone.processor" id="processor" required
+                       lay-verify="required"
+                       placeholder="请输入处理器型号"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">数量</label>
+            <div class="layui-input-block">
+                <input type="text" name="number" v-model="phone.number" id="number" required
+                       lay-verify="required"
+                       placeholder="请输入手机数量"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">价格</label>
+            <div class="layui-input-block">
+                <input type="text" name="price" v-model="phone.price" id="price" required
+                       lay-verify="required"
+                       placeholder="请输入手机价格"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="reset" class="layui-btn layui-btn-primary" @click="xiugai()">提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+    function getUrlParam(id) {
+        var reg = new RegExp("(^|&)" + id + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null)
+            return unescape(r[2]);
+        return null; //返回参数值
+    }
+
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                phone:{}
+            }
+        },
+        methods:{
+            xiugai() {
+                var _this = this;
+                axios({
+                    method: "PUT",
+                    url: "http://127.0.0.1:8080/admin/updatePhone",
+                    data: _this.phone,
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    }
+                }).then(resp =>{
+                    var code = resp.data.code;
+                    if (code == "200") {
+                        alert("修改数据成功");
+                        window.location.href = "adminIndex.html";
+                    } else {
+                        alert("修改数据失败");
+                    }
+                })
+            }
+        },
+        mounted() {
+            //1.获取地址栏参数
+            var id = getUrlParam("id");
+            var _this = this;
+            //2.发送ajax请求
+            axios({
+                // 请求方式
+                method: 'GET',
+                // 请求的地址
+               url: 'http://127.0.0.1:8080/admin/selectById/'+id,
+            }).then(function (result) {
+                var code = result.data.code;
+                if (code == "200") {
+                    _this.phone = result.data.data;
+                } else {
+                    alert("查询用户信息数据失败!");
+                }
+
+            })
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户首页</title>
+    <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css"/>
+    <!-- 引入vue.js -->
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <a href="userIndex.html" style="float: right">点击返回主页</a>
+    <table class="layui-table">
+        <colgroup>
+            <col width="100">
+            <col width="120">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>订单编号</th>
+            <th>手机编号</th>
+            <th>品牌</th>
+            <th>型号</th>
+            <th>运存</th>
+            <th>内存</th>
+            <th>价格</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="byphone in byphone">
+            <td>{{byphone.id}}</td>
+            <td>{{byphone.phoneid}}</td>
+            <td>{{byphone.brand}}</td>
+            <td>{{byphone.model}}</td>
+            <td>{{byphone.storage}}</td>
+            <td>{{byphone.memory}}</td>
+            <td>{{byphone.price}}</td>
+            <td>
+                <!--                <button @click="userbyphone()">退货</button>-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    function getCookieValue(id) {
+        var cookieArray = document.cookie.split("; ");
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i].split("=");
+            if (cookie[0] === id) {
+                return decodeURIComponent(cookie[1]);
+            }
+        }
+        return "";
+    }
+
+    /**
+     * 页面加载之后发送ajax请求
+     */
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                byphone: [],
+            }
+        },
+        mounted() {
+            var _this = this;
+            var userid = getCookieValue("id")
+            axios({
+                method: "GET",
+                url: 'http://127.0.0.1:8080/user/userselectbyid/'+userid,
+            }).then(function (result) {
+                var code = result.data.code;
+                var data = result.data.data;
+                if (code == "200") {
+                    _this.byphone = data;
+                }
+            })
+        }
+    });
+</script>
+</body>
+</html>

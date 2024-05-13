@@ -1,0 +1,11 @@
+
+8
+java:S2326	"Dto is not used in the class.(™áÂ¦ûÿÿÿÿ
+7
+java:S2326	"Do is not used in the class.(™áÂ¦ûÿÿÿÿ
+U
+java:S1118	":Add a private constructor to hide the implicit public one.(™áÂ¦ûÿÿÿÿ
+c	java:S119	"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(™áÂ¦ûÿÿÿÿ
+c	java:S119	"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(™áÂ¦ûÿÿÿÿ
+c	java:S119"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(Ü÷¡óþÿÿÿÿ
+^	java:S119$"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(ÐËŒ‰

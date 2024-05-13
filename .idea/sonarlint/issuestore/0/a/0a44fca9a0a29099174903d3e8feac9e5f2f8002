@@ -1,0 +1,8 @@
+
+¦
+java:S14885"^Immediately return this expression instead of assigning it to the temporary variable "result".(ÑÈ¦Ãùÿÿÿÿ8‚›Ò÷1J$063f5415-0e19-498a-b3fc-d51e7f711fac
+¦
+java:S1488="^Immediately return this expression instead of assigning it to the temporary variable "phones".(æ‚Ìøÿÿÿÿ8‚›Ò÷1J$91e82a99-179c-490d-9883-f05943b56cc5
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ö¸³™üÿÿÿÿ8ƒ›Ò÷1J$10bc4c5b-a6e5-43a0-a140-e42e7f1b9b7e
+f
+java:S2583"DChange this condition so that it does not always evaluate to "false"(çÆé‘ÿÿÿÿÿ8¨Óï÷1

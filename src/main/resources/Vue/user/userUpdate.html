@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改手机信息</title>
+    <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css"/>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <a href="userIndex.html" style="float: right">点击返回首页</a>
+    <form class="layui-form" action="">
+        <div class="layui-form-item" style="display: none">
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-block">
+                <input type="text" name="id" v-model="user.id" id="id" required lay-verify="required"
+                       autocomplete="off"
+                       class="layui-input"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="nickname" v-model="user.nickname" id="nickname" required
+                       lay-verify="required"
+                       placeholder="请输入用户名"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="text" name="password" v-model="user.password" id="password" required lay-verify="required"
+                       placeholder="请输入密码"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">年龄</label>
+            <div class="layui-input-block">
+                <input type="text" name="age" v-model="user.age" id="age" required lay-verify="required"
+                       placeholder="请输入年龄"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-block">
+                <input type="text" name="phonenumber" v-model="user.phonenumber" id="phonenumber" required lay-verify="required"
+                       placeholder="请输入电话"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="address" v-model="user.address" id="address" required
+                       lay-verify="required"
+                       placeholder="请输入地址"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="reset" class="layui-btn layui-btn-primary" @click="xiugaixinxi()">提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+    // function getUrlParam(id) {
+    //     var reg = new RegExp("(^|&)" + id + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    //     var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    //     if (r != null)
+    //         return unescape(r[2]);
+    //     return null; //返回参数值
+    // }
+    //获取cookie中的id值
+    function getCookieValue(id) {
+        var cookieArray = document.cookie.split("; ");
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i].split("=");
+            if (cookie[0] === id) {
+                return decodeURIComponent(cookie[1]);
+            }
+        }
+        return "";
+    }
+
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                user: {}
+            }
+        },
+        methods: {
+            xiugaixinxi() {
+                var _this = this;
+                axios({
+                    method: "PUT",
+                    url: "http://127.0.0.1:8080/user/updateuser",
+                    data: _this.user,
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    }
+                }).then(resp => {
+                    var code = resp.data.code;
+                    if (code == "200") {
+                        alert("修改数据成功");
+                        window.location.href = "userIndex.html";
+                    } else {
+                        alert("修改数据失败");
+                    }
+                })
+            }
+        },
+        mounted() {
+            //1.获取地址栏参数
+            var id = getCookieValue("id");
+            var _this = this;
+            //2.发送ajax请求
+            axios({
+                // 请求方式
+                method: 'GET',
+                // 请求的地址
+                url: 'http://127.0.0.1:8080/user/selectbyid/'+id,
+            }).then(function (result) {
+                var code = result.data.code;
+                if (code == "200") {
+                    _this.user = result.data.data;
+                } else {
+                    alert("查询用户信息数据失败!");
+                }
+
+            })
+        }
+    })
+</script>
+</body>
+</html>

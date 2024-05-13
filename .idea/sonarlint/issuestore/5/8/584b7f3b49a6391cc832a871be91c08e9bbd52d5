@@ -1,0 +1,14 @@
+
+s
+java:S1128"7Remove this unused import 'io.swagger.annotations.Api'.(·¦°ÎJ$9a57e06d-42eb-4048-8ec3-d156342e0c75
+|
+java:S1128"@Remove this unused import 'io.swagger.annotations.ApiOperation'.(¡šÜJ$1fc8c88a-160a-42c4-95ae-c44fa4fb7975
+r
+java:S1128"6Remove this unused import 'io.swagger.models.auth.In'.(å£ÙóJ$4db93694-5506-412c-888e-e1aba4da7645
+|
+java:S1128"@Remove this unused import 'org.apache.ibatis.annotations.Param'.(á¬Ó²J$53ecf149-6375-44b3-8bd5-4f81b923ce28
+
+java:S1128	"CRemove this unused import 'org.springframework.stereotype.Service'.(¼º¡ÚJ$b8b02b53-507d-430f-9a0f-338fafae6987
+–
+java:S1128
+"URemove this unused import 'org.springframework.transaction.annotation.Transactional'.(ğùçøùÿÿÿÿJ$6a9a7ff4-9254-48c2-9d69-397374f2a8dd

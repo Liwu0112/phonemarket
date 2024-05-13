@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css"/>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<a href="adminIndex.html" style="float: right">点击返回登录</a>
+<div id="app">
+    <div class="layui-form-item">
+        <label class="layui-form-label">昵称</label>
+        <div class="layui-input-block">
+            <input type="text" name="nickname" v-model="user.nickname" id="model" required lay-verify="required"
+                   placeholder="请输入昵称"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+            <input type="password" name="password" v-model="user.password" id="storage" required lay-verify="required"
+                   placeholder="请输入密码"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">年龄</label>
+        <div class="layui-input-block">
+            <input type="text" name="age" v-model="user.age" id="memory" required lay-verify="required"
+                   placeholder="请输入年龄"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">电话号码</label>
+        <div class="layui-input-block">
+            <input type="text" name="phonenumber" v-model="user.phonenumber" id="processor" required
+                   lay-verify="required"
+                   placeholder="请输入电话号码"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="address" v-model="user.address" id="number" required
+                   lay-verify="required"
+                   placeholder="请输入地址"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="reset" class="layui-btn layui-btn-primary" @click="insertuser()">提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+
+        </div>
+    </div>
+    </form>
+</div>
+<script>
+
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                user:{
+                    isDelete:0
+                }
+            }
+        },
+        methods:{
+            insertuser(){
+                var _this=this
+                axios({
+                    // 请求方式
+                    method: 'POST',
+                    // 请求的地址
+                    url: 'http://127.0.0.1:8080/user/userinsert',
+                    data: _this.user,
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    }
+                }).then(function (result) {
+                    var code = result.data.code;
+                    var msg = result.data.msg;
+                    if (code == "200") {
+                        alert("注册失败");
+                    } else {
+                        alert(msg);
+                        window.location.href = "/springboot/Vue/user/userLogin.html";
+                    }
+
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>

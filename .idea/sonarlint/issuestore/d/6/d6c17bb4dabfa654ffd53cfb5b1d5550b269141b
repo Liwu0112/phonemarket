@@ -1,0 +1,8 @@
+
+
+java:S1488"aImmediately return this expression instead of assigning it to the temporary variable "phoneList".(Í‰ƒJ$393e0a79-fc29-4d67-b69f-ec80892a6104
+Ÿ
+java:S14882"^Immediately return this expression instead of assigning it to the temporary variable "result".(˜îø—øÿÿÿÿJ$0030f5bf-0801-4771-a1ea-178fd0313799
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ö¸³™üÿÿÿÿJ$113cceee-fa29-45a9-a0df-554f2af1f4ad
+|
+java:S1128"@Remove this unused import 'org.apache.ibatis.annotations.Param'.(á¬Ó²J$98c527fa-ce2e-4800-b755-c66b6dd498e8
