@@ -34,5 +34,4 @@
 ### 实现
 
 该项目的业务逻辑是，前端用户选择要执行的操作，通过服务器传给后端Controller，后端Controller通过调用Service层的方法执行
-
 具体操作，Service层执行完方法后将结果返回给Controller，服务器根据Controller进行前端页面的操作，数据库的操作在Service层去调用Mapper层的接口实现。
